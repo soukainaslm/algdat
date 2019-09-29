@@ -21,6 +21,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     /**
      * Node class
+     *
      * @param <T>
      */
     private static final class Node<T> {
@@ -52,7 +53,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new NotImplementedException();
     }
 
-    public Liste<T> subliste(int fra, int til){
+    public Liste<T> subliste(int fra, int til) {
         throw new NotImplementedException();
     }
 
@@ -73,11 +74,49 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
+        Objects.requireNonNull(verdi, "Ugyldig verdi!");
+        //Negative indekser og indekser større enn null er ulovlige
+        if (indeks < 0) throw new IndexOutOfBoundsException("Indeksen er ugyldig");
+        else if (indeks > antall)
+            throw new IndexOutOfBoundsException("Indeksen er høyere enn antall noder!");
+
+        //listen er tom
+        if (antall == 0) hode = hale = new Node<T>(verdi, null, null);
+
+        //verdien skal legges først
+        else if (indeks == 0) {
+            hode = new Node<T>(verdi, null, hode);
+            hode.neste.forrige = hode;
+
+            //verdien skal legges bakerst
+        } else if (indeks == antall-1) {
+            hale = new Node<T>(verdi, hale, null);
+            hale.forrige.neste = hale;
+        }
+        //legges i midten
+        else {
+            Node<T> denne = hode;
+            for (int i = 0; i <= indeks; i++) {
+                denne = denne.neste;
+            }
+            Node<T> nyNode = new Node<>(verdi, denne, denne.neste);
+            denne.neste = nyNode;
+            nyNode.neste = denne.neste;
+            nyNode.forrige = denne;
+            nyNode.neste.forrige = nyNode;
+        }
+
+        antall++;
+
         throw new NotImplementedException();
     }
 
+
     @Override
     public boolean inneholder(T verdi) {
+        if (indeksTil(verdi) > -1) return true;
+        else if (indeksTil(verdi) < 0)
+            return false;
         throw new NotImplementedException();
     }
 
@@ -88,6 +127,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
+        int index = 0;
+        for (Node<T> temp = hale; temp.forrige != null; temp = temp.forrige) {
+            if (temp.verdi == verdi) {
+                return index;
+            }
+            else if (temp == hode && temp.verdi != verdi) return -1;
+            index++;
+
+        }
         throw new NotImplementedException();
     }
 
@@ -108,8 +156,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
+        //1.måten
+        for (Node<T> temp = hode; temp.neste != null; temp = temp.neste){
+            temp.verdi = null;
+            temp.forrige = null;
+            temp.neste = null;
+            endringer++;
+        }
+        hode = hale = null;
+        antall = 0;
+
+        //2.måten
+        int index = 0;
+        for (Node<T> temp = hode; temp.neste != null; temp = temp.neste) {
+            fjern(index);
+            index ++;
+        }
         throw new NotImplementedException();
     }
+
 
     @Override
     public String toString() {
