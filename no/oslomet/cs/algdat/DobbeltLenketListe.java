@@ -45,31 +45,120 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+
+    // Hjelpemetode
+    private Node<T> finnNode(int indeks){
+        Node<T> p;
+
+        if(indeks < antall / 2){
+            p = hode;
+            for(int i = 0; i < indeks; i++){
+                p = p.neste;
+            }
+            return p;
+        } else {
+            p = hale;
+            for(int i = antall - 1; i > indeks; i--){
+                p = p.forrige;
+            }
+            return p;
+        }
+    }
+
+
+    private static void fratilKontroll(int antall, int fra, int til)
+    {
+        // Her så  går den fra  negativ!!
+                 if (fra < 0)
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        //  Her så ender den utenfor tabellen
+                 if (til > antall)
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + antall + ")");
+
+        // fra er større enn til
+        if (fra > til)
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+
+    // Standard Konstruktør!!
     public DobbeltLenketListe() {
-        throw new NotImplementedException();
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
+
+    }
+// Konstruktør blir skrevet her:
+
+public DobbeltLenketListe(T[] a)   // konstruktør
+{
+
+    // Her skal standardkonstruktøren brukes
+    this();
+
+    Objects.requireNonNull(a, "a er null!");
+
+    hode = hale = new Node<>(null);
+
+    for (T temp : a)
+    {
+        if (temp != null)
+        {
+            // ny node bakerst
+            hale = hale.neste = new Node<>(temp, hale, null);
+            antall++;
+        }
     }
 
-    public DobbeltLenketListe(T[] a) {
-        throw new NotImplementedException();
+    // Her så fjernes den midlertidige noden
+                if (antall == 0)
+                         hode = hale = null;
+                         else
+                    (hode = hode.neste).forrige = null;
+
+ }
+
+    public Liste<T> subliste(int fra, int til)
+    {
+        // sjekker intevallet
+        fratilKontroll(antall, fra, til);
+
+        // Ny sub liste blir kodet her
+             DobbeltLenketListe<T> liste = new DobbeltLenketListe<>();
+
+        // I denne koden så finner noden med indeks lik fra
+                Node<T> p = finnNode(fra);
+
+        // Henter verdiene i [fra:til>
+        for (int k = fra; k < til; k++) { liste.leggInn(p.verdi);p = p.neste; }
+        return liste;
     }
 
-    public Liste<T> subliste(int fra, int til) {
-        throw new NotImplementedException();
-    }
 
     @Override
     public int antall() {
-        throw new NotImplementedException();
+        return antall;
     }
   
     @Override
     public boolean tom() {
-        throw new NotImplementedException();
+        return antall == 0;
     }
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new NotImplementedException();
+        Objects.requireNonNull(verdi, "Her skal skal det ikke være null-verdier!");
+                 if (tom()) {  hode = hale = new Node<>(verdi, null,null); }
+
+                 else
+            {
+            hale = hale.neste = new Node<>(verdi, hale, null);
+            }
+        antall++; endringer++;
+        return true;
     }
 
     @Override
@@ -122,7 +211,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new NotImplementedException();
+        indeksKontroll(indeks, false);
+        Node<T> p = finnNode(indeks);
+
+        return p.verdi;
     }
 
     @Override
@@ -141,7 +233,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new NotImplementedException();
+        Objects.requireNonNull(nyverdi, "Nyverdi kan ikke være null!");
+        indeksKontroll(indeks, false);
+
+        Node<T> p = finnNode(indeks);
+
+        T gammelverdi = p.verdi;
+        p.verdi = nyverdi;
+
+        endringer++;
+
+        return gammelverdi;
     }
 
     @Override
@@ -187,7 +289,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new NotImplementedException();
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -202,20 +304,35 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         private DobbeltLenketListeIterator(){
             throw new NotImplementedException();
+
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            throw new NotImplementedException();
+            denne.verdi = hent(indeks);
+
         }
 
         @Override
         public boolean hasNext(){
             throw new NotImplementedException();
+               /*  return denne != null;  // denne skal ikke endres*/
         }
+
 
         @Override
         public T next(){
-            throw new NotImplementedException();
+            if(!hasNext())
+                throw new NoSuchElementException();
+
+            if(iteratorendringer != endringer)
+                throw new ConcurrentModificationException();
+
+            T temp = denne.verdi;
+            denne = denne.neste;
+
+            fjernOK = true;
+
+            return temp;
         }
 
         @Override
