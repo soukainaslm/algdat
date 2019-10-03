@@ -35,7 +35,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private Node(T verdi) {
-
             this(verdi, null, null);
         }
     }
@@ -47,65 +46,30 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        hode = hale = null;
-        antall = 0;
-        endringer = 0;
-
         throw new NotImplementedException();
     }
 
     public DobbeltLenketListe(T[] a) {
-        this();
-
-        Objects.requireNonNull(a, "Tabellen a er null!");
-
-        hode = hale = new Node<>(null);
-
-        for (T verdi : a)
-        {
-            if (verdi != null)
-            {
-                hale = hale.neste = new Node<>(verdi, hale, null);
-                antall++;
-            }
-        }
-
-        if (antall == 0) hode = hale = null;
-        else (hode = hode.neste).forrige = null;
-
+        throw new NotImplementedException();
     }
 
     public Liste<T> subliste(int fra, int til) {
         throw new NotImplementedException();
-
     }
 
     @Override
     public int antall() {
-        return antall;
+        throw new NotImplementedException();
     }
- 
+  
     @Override
     public boolean tom() {
-
-        return antall == 0;
+        throw new NotImplementedException();
     }
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Null verdier er ikke tillatt");
-
-        if (tom()) {
-            hode = hale = new Node<T>(verdi, null, null);
-        } else {
-            hale = hale.neste = new Node<T>(verdi, hale, null);
-        }
-
-        antall++;
-        endringer++;
-
-        return true;
-
+        throw new NotImplementedException();
     }
 
     @Override
@@ -187,8 +151,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-
-        
         throw new NotImplementedException();
     }
 
@@ -216,43 +178,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        if (tom()) return "[]";
-
-        StringBuilder sb = new StringBuilder();
-        sb.append('[');
-
-        Node<T> node = hode;
-
-        sb.append(node.verdi);
-        node = node.neste;
-
-        while (node != null) {
-            sb.append(',').append(' ').append(node.verdi);
-            node = node.neste;
-        }
-
-        sb.append(']');
-        return sb.toString();
+        throw new NotImplementedException();
     }
 
     public String omvendtString() {
-        if (tom()) return "[]";
-
-        StringBuilder sb = new StringBuilder();
-        sb.append('[');
-
-        Node<T> node = hale;
-
-        sb.append(node.verdi);
-        node = node.forrige;
-
-        while (node != null) {
-            sb.append(',').append(' ').append(node.verdi);
-            node = node.forrige; //Verdiene kommer i omvendt rekkefølge
-        }
-
-        sb.append(']');
-        return sb.toString();
+        throw new NotImplementedException();
     }
 
     @Override
