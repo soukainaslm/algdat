@@ -47,7 +47,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
 
-    // Hjelpemetode
+
     private Node<T> finnNode(int indeks){
         Node<T> p;
 
@@ -76,7 +76,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (fra > til) throw new IllegalArgumentException("fra(" + fra + ") er større enn til(" + til + ") - ulovlig intervall!");
     }
 
-    // Standard Konstruktør!!
+
     public DobbeltLenketListe() {
         hode = hale = null;
         antall = 0;
@@ -103,7 +103,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else (hode = hode.neste).forrige = null;
     }
 
-    public Liste<T> subliste(int fra, int til) {
+    public Liste<T> subListe(int fra, int til) {
         fratilKontroll(antall, fra, til);
 
         DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>();
