@@ -308,7 +308,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new NotImplementedException();
+        indeksKontroll(indeks, false);
+
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -331,8 +333,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public boolean hasNext(){
-            throw new NotImplementedException();
-               /*  return denne != null;  // denne skal ikke endres*/
+            return denne != null;  // denne skal ikke endres
         }
 
 
