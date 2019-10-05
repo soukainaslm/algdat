@@ -103,10 +103,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else (hode = hode.neste).forrige = null;
     }
 
-    if (antall == 0) hode = hale = null;
-    else (hode = hode.neste).forrige = null;
- }
-
     public Liste<T> subliste(int fra, int til) {
         fratilKontroll(antall, fra, til);
 
