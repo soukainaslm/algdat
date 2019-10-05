@@ -46,6 +46,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
 
+
     // Hjelpemetode
     private Node<T> finnNode(int indeks){
         Node<T> p;
@@ -68,20 +69,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private static void fratilKontroll(int antall, int fra, int til)
     {
-        // Her så  går den fra  negativ!!
-                 if (fra < 0)
-            throw new IndexOutOfBoundsException
-                    ("fra(" + fra + ") er negativ!");
+        if (fra < 0) throw new IndexOutOfBoundsException("fra: " + fra + ", er negativ!");
 
-        //  Her så ender den utenfor tabellen
-                 if (til > antall)
-            throw new IndexOutOfBoundsException
-                    ("til(" + til + ") > antall(" + antall + ")");
+        if (til > antall) throw new IndexOutOfBoundsException("til: " + til + " er større enn antall: " + antall);
 
-        // fra er større enn til
-        if (fra > til)
-            throw new IllegalArgumentException
-                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+        if (fra > til) throw new IllegalArgumentException("fra(" + fra + ") er større enn til(" + til + ") - ulovlig intervall!");
     }
 
     // Standard Konstruktør!!
@@ -103,38 +95,30 @@ public DobbeltLenketListe(T[] a)   // konstruktør
 
     hode = hale = new Node<>(null);
 
-    for (T temp : a)
-    {
-        if (temp != null)
-        {
+    for (T temp : a) {
+        if (temp != null) {
             // ny node bakerst
             hale = hale.neste = new Node<>(temp, hale, null);
             antall++;
         }
     }
 
-    // Her så fjernes den midlertidige noden
-                if (antall == 0)
-                         hode = hale = null;
-                         else
-                    (hode = hode.neste).forrige = null;
-
+    if (antall == 0) hode = hale = null;
+    else (hode = hode.neste).forrige = null;
  }
 
-    public Liste<T> subliste(int fra, int til)
-    {
-        // sjekker intevallet
+    public Liste<T> subliste(int fra, int til) {
         fratilKontroll(antall, fra, til);
 
-        // Ny sub liste blir kodet her
-             DobbeltLenketListe<T> liste = new DobbeltLenketListe<>();
+        DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>();
 
-        // I denne koden så finner noden med indeks lik fra
-                Node<T> p = finnNode(fra);
+        Node<T> p = finnNode(fra);
 
-        // Henter verdiene i [fra:til>
-        for (int k = fra; k < til; k++) { liste.leggInn(p.verdi);p = p.neste; }
-        return liste;
+        for (int i = fra; i < til; i++) {
+            subListe.leggInn(p.verdi);
+            p = p.neste;
+        }
+        return subListe;
     }
 
 
@@ -303,13 +287,15 @@ public DobbeltLenketListe(T[] a)   // konstruktør
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator(){
-            throw new NotImplementedException();
-
+            denne = hode;     // denne starter på den første i listen
+            fjernOK = false;  // blir sann når next() kalles
+            iteratorendringer = endringer;  // teller endringer
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            denne.verdi = hent(indeks);
-
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
         }
 
         @Override
