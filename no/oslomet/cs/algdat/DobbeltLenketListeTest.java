@@ -2,16 +2,13 @@ package no.oslomet.cs.algdat;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 class DobbeltLenketListeTest {
 
     ////// Oppgave 1 /////////////////////
     @org.junit.jupiter.api.Test
     void oppgave1() {
         int antallFeil = 0;
-        Liste<Integer> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
+        Liste<Integer> liste = new Liste.DobbeltLenketListe<>();
 
         if (liste.antall() != 0) {
             antallFeil++;
@@ -24,7 +21,7 @@ class DobbeltLenketListeTest {
         }
 
         try {
-            liste = new DobbeltLenketListe<>(null);
+            liste = new Liste.DobbeltLenketListe<>(null);
             antallFeil++;
             System.out.println("Oppgave 1c: Det skal kastes en NullPointerExcepiton her!");
         } catch (Exception e) {
@@ -35,7 +32,7 @@ class DobbeltLenketListeTest {
             }
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{});
 
         if (liste.antall() != 0) {
             antallFeil++;
@@ -47,7 +44,7 @@ class DobbeltLenketListeTest {
             System.out.println("Oppgave 1f: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{1});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{1});
 
         if (liste.antall() != 1) {
             antallFeil++;
@@ -59,14 +56,14 @@ class DobbeltLenketListeTest {
             System.out.println("Oppgave 1h: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{1, 2});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{1, 2});
 
         if (liste.antall() != 2) {
             antallFeil++;
             System.out.println("Oppgave 1i: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{1, 2, 3});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{1, 2, 3});
 
         if (liste.antall() != 3) {
             antallFeil++;
@@ -75,49 +72,49 @@ class DobbeltLenketListeTest {
 
         Integer[] a = {1, 2, 3, 4, 5};
         Integer[] b = {1, 2, 3, 4, 5};
-        liste = new DobbeltLenketListe<>(a);
+        liste = new Liste.DobbeltLenketListe<>(a);
 
         if (!Arrays.equals(a, b)) {
             antallFeil++;
             System.out.println("Oppgave 1k: Konstruktøren endrer parametertabellen!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null});
 
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1l: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null, null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, null});
 
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1m: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null, null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, null});
 
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1n: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null, 1, null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null});
 
         if (liste.antall() != 1) {
             antallFeil++;
             System.out.println("Oppgave 1o: Feil i konstruktøren!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null, 3, null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null, 3, null});
 
         if (liste.antall() != 3) {
             antallFeil++;
             System.out.println("Oppgave 1p: Feil i konstruktøren!");
         }
 
-        class Test<T> extends DobbeltLenketListe<T> {
+        class Test<T> extends Liste.DobbeltLenketListe<T> {
             public boolean leggInn(T verdi) {
                 super.leggInn(verdi);
                 super.leggInn(verdi);
@@ -144,7 +141,7 @@ class DobbeltLenketListeTest {
     void oppgave2() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        Liste.DobbeltLenketListe<Integer> liste = new Liste.DobbeltLenketListe<>();
 
         if (liste.leggInn(1) != true) {
             antallFeil++;
@@ -172,7 +169,7 @@ class DobbeltLenketListeTest {
             }
         }
 
-        liste = new DobbeltLenketListe<>();
+        liste = new Liste.DobbeltLenketListe<>();
 
         if (!liste.toString().equals("[]")) {
             antallFeil++;
@@ -234,7 +231,7 @@ class DobbeltLenketListeTest {
                     ("Oppgave 2l: Du har " + s + ", skal være [4, 3, 2, 1]!");
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null});
         String t1 = "[]", t2 = liste.toString();
 
         if (!t1.equals(t2)) {
@@ -243,7 +240,7 @@ class DobbeltLenketListeTest {
                     ("Oppgave 2m: Du har " + t2 + ", men det skal være " + t1);
         }
 
-        liste = new DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null});
+        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null});
         t1 = "[1, 2]";
         t2 = liste.toString();
 
@@ -270,7 +267,7 @@ class DobbeltLenketListeTest {
     void oppgave3() {
         int antallFeil = 0;
 
-        Liste<Integer> testliste = new DobbeltLenketListe<>();
+        Liste<Integer> testliste = new Liste.DobbeltLenketListe<>();
         for (int i = 0; i < 100000; i++) testliste.leggInn(i);
         long tid = System.currentTimeMillis();
         for (int i = 0; i < 10000; i++) testliste.hent(99999);
@@ -282,7 +279,7 @@ class DobbeltLenketListeTest {
             System.out.println("            Har du kodet metoden finnNode() riktig?");
         }
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        Liste.DobbeltLenketListe<Integer> liste = new Liste.DobbeltLenketListe<>();
 
         try {
             liste.hent(0);
@@ -404,7 +401,7 @@ class DobbeltLenketListeTest {
         }
 
         Integer[] i = {};
-        DobbeltLenketListe<Integer> iliste = new DobbeltLenketListe<>(i);
+        Liste.DobbeltLenketListe<Integer> iliste = new Liste.DobbeltLenketListe<>(i);
 
         if (!iliste.subliste(0, 0).toString().equals("[]")) {
             antallFeil++;
@@ -413,7 +410,7 @@ class DobbeltLenketListeTest {
         }
 
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
-        DobbeltLenketListe<Character> cliste = new DobbeltLenketListe<>(c);
+        Liste.DobbeltLenketListe<Character> cliste = new Liste.DobbeltLenketListe<>(c);
 
         if (!cliste.subliste(0, 1).toString().equals("[A]")) {
             antallFeil++;

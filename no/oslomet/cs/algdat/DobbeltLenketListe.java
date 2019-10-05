@@ -81,26 +81,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hode = hale = null;
         antall = 0;
         endringer = 0;
-
     }
-// Konstruktør blir skrevet her:
 
-public DobbeltLenketListe(T[] a)   // konstruktør
-{
+    public DobbeltLenketListe(T[] a) {
+        this();
 
-    // Her skal standardkonstruktøren brukes
-    this();
+        Objects.requireNonNull(a, "Tabellen a er null!");
 
-    Objects.requireNonNull(a, "a er null!");
+        hode = hale = new Node<>(null);
 
-    hode = hale = new Node<>(null);
-
-    for (T temp : a) {
-        if (temp != null) {
-            // ny node bakerst
-            hale = hale.neste = new Node<>(temp, hale, null);
-            antall++;
+        for (T verdi : a)
+        {
+            if (verdi != null)
+            {
+                hale = hale.neste = new Node<>(verdi, hale, null);
+                antall++;
+            }
         }
+
+        if (antall == 0) hode = hale = null;
+        else (hode = hode.neste).forrige = null;
     }
 
     if (antall == 0) hode = hale = null;
@@ -134,14 +134,17 @@ public DobbeltLenketListe(T[] a)   // konstruktør
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Her skal skal det ikke være null-verdier!");
-                 if (tom()) {  hode = hale = new Node<>(verdi, null,null); }
+        Objects.requireNonNull(verdi, "Null verdier er ikke tillatt");
 
-                 else
-            {
-            hale = hale.neste = new Node<>(verdi, hale, null);
-            }
-        antall++; endringer++;
+        if (tom()) {
+            hode = hale = new Node<T>(verdi, null, null);
+        } else {
+            hale = hale.neste = new Node<T>(verdi, hale, null);
+        }
+
+        antall++;
+        endringer++;
+
         return true;
     }
 
@@ -264,11 +267,43 @@ public DobbeltLenketListe(T[] a)   // konstruktør
 
     @Override
     public String toString() {
-        throw new NotImplementedException();
+        if (tom()) return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+
+        Node<T> node = hode;
+
+        sb.append(node.verdi);
+        node = node.neste;
+
+        while (node != null) {
+            sb.append(',').append(' ').append(node.verdi);
+            node = node.neste;
+        }
+
+        sb.append(']');
+        return sb.toString();
     }
 
     public String omvendtString() {
-        throw new NotImplementedException();
+        if (tom()) return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+
+        Node<T> node = hale;
+
+        sb.append(node.verdi);
+        node = node.forrige;
+
+        while (node != null) {
+            sb.append(',').append(' ').append(node.verdi);
+            node = node.forrige; //Verdiene kommer i omvendt rekkefølge
+        }
+
+        sb.append(']');
+        return sb.toString();
     }
 
     @Override
