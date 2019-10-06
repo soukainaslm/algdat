@@ -25,8 +25,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * @param <T>
      */
     private static final class Node<T> {
-        private T verdi;                   // nodens verdi
-        private Node<T> forrige, neste;    // pekere
+        private T verdi;
+        private Node<T> forrige, neste;
 
         private Node(T verdi, Node<T> forrige, Node<T> neste) {
             this.verdi = verdi;
@@ -130,57 +130,44 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Null verdier er ikke tillatt");
+        Objects.requireNonNull(verdi, "Null-verdierikke tillatt!");
 
-        if (tom()) {
-            hode = hale = new Node<T>(verdi, null, null);
-        } else {
-            hale = hale.neste = new Node<T>(verdi, hale, null);
-        }
+        Node<T> p = new Node<>(verdi, hale, null);
+        hale = tom() ? (hode = p) : (hale.neste = p);
 
         antall++;
         endringer++;
+
 
         return true;
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        Objects.requireNonNull(verdi, "Ugyldig verdi!");
-        //Negative indekser og indekser større enn null er ulovlige
-        if (indeks < 0) throw new IndexOutOfBoundsException("Indeksen er ugyldig");
-        else if (indeks > antall)
-            throw new IndexOutOfBoundsException("Indeksen er høyere enn antall noder!");
+        Objects.requireNonNull(verdi, "Ikke tillatt med null-verdier!");
 
-        //listen er tom
-        if (antall == 0) hode = hale = new Node<T>(verdi, null, null);
+        indeksKontroll(indeks, true);
 
-        //verdien skal legges først
-        else if (indeks == 0) {
-            hode = new Node<T>(verdi, null, hode);
-            hode.neste.forrige = hode;
-
-            //verdien skal legges bakerst
-        } else if (indeks == antall-1) {
-            hale = new Node<T>(verdi, hale, null);
-            hale.forrige.neste = hale;
+        if (tom())
+        {
+            hode = hale = new Node<>(verdi, null, null);
         }
-        //legges i midten
-        else {
-            Node<T> denne = hode;
-            for (int i = 0; i <= indeks; i++) {
-                denne = denne.neste;
-            }
-            Node<T> nyNode = new Node<>(verdi, denne, denne.neste);
-            denne.neste = nyNode;
-            nyNode.neste = denne.neste;
-            nyNode.forrige = denne;
-            nyNode.neste.forrige = nyNode;
+        else if (indeks == 0)
+        {
+            hode = hode.forrige = new Node<>(verdi, null, hode);
+        }
+        else if (indeks == antall)
+        {
+            hale = hale.neste = new Node<>(verdi, hale, null);
+        }
+        else
+        {
+            Node<T> p = finnNode(indeks);
+            p.forrige = p.forrige.neste = new Node<>(verdi, p.forrige, p);
         }
 
         antall++;
-
-        throw new NotImplementedException();
+        endringer++;
     }
 
 
@@ -229,14 +216,42 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return gammelverdi;
     }
 
+    private T fjernNode(Node<T> p)  // lager en hjelpemetode
+    {
+        if (p == hode)
+        {
+            if (antall == 1) hode = hale = null;
+            else (hode = hode.neste).forrige = null;
+        }
+        else if (p == hale) (hale = hale.forrige).neste = null;
+        else (p.forrige.neste = p.neste).forrige = p.forrige;
+
+        antall--;
+        endringer++;
+
+        return p.verdi;
+    }
+
+
     @Override
     public boolean fjern(T verdi) {
-        throw new NotImplementedException();
+        if (verdi == null) return false;
+
+        for (Node<T> p = hode; p != null; p = p.neste)
+        {
+            if (p.verdi.equals(verdi))
+            {
+                fjernNode(p);   // bruker hjelpemetoden
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public T fjern(int indeks) {
-        throw new NotImplementedException();
+        indeksKontroll(indeks, false);
+        return fjernNode(finnNode(indeks));
     }
 
     @Override
