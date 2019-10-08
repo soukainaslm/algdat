@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 
 
 
-public class DobbeltLenketListe<T> implements Liste<T> {
+public class DobbeltLenketListe<T> implements no.oslomet.cs.algdat.Liste<T> {
 
     /**
      * Node class
@@ -103,7 +103,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else (hode = hode.neste).forrige = null;
     }
 
-    public Liste<T> subListe(int fra, int til) {
+    public no.oslomet.cs.algdat.Liste<T> subListe(int fra, int til) {
         fratilKontroll(antall, fra, til);
 
         DobbeltLenketListe<T> subListe = new DobbeltLenketListe<>();
@@ -190,11 +190,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int indeksTil(T verdi) {
         int index = 0;
+        if (!verdi.equals(null)) return -1;
         for (Node<T> temp = hale; temp.forrige != null; temp = temp.forrige) {
-            if (temp.verdi == verdi) {
+            if (temp.verdi.equals(verdi)) {
                 return index;
             }
-            else if (temp == hode && temp.verdi != verdi) return -1;
+            else if (temp.equals(hode) && !temp.verdi.equals(verdi)) return -1;
             index++;
 
         }
@@ -266,12 +267,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hode = hale = null;
         antall = 0;
 
-        //2.måten
+   /*     //2.måten
         int index = 0;
         for (Node<T> temp = hode; temp.neste != null; temp = temp.neste) {
             fjern(index);
             index ++;
-        }
+        }*/
         throw new NotImplementedException();
     }
 
@@ -398,8 +399,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     } // class DobbeltLenketListeIterator
 
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new NotImplementedException();
+
+    public static <T> void sorter(no.oslomet.cs.algdat.Liste < T > liste, Comparator<? super T> c) {
+        if (liste.antall() == 0) throw new NotImplementedException();
+        for (Node<T> current = ((no.oslomet.cs.algdat.DobbeltLenketListe) liste).hode; current.neste != null; current = current.neste){
+            for (Node<T> other = current.neste; other.neste != null; other = other.neste){
+                if (c.compare(current.verdi,other.verdi) >0){
+                    T temp = other.verdi;
+                    other.verdi = current.verdi;
+                    current.verdi = temp;
+                }
+            }
+        }
     }
 
 } // class DobbeltLenketListe

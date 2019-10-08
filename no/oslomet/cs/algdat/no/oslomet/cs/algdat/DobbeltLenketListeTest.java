@@ -1,5 +1,6 @@
 package no.oslomet.cs.algdat;
 
+import javax.swing.*;
 import java.util.*;
 
 class DobbeltLenketListeTest {
@@ -8,7 +9,7 @@ class DobbeltLenketListeTest {
     @org.junit.jupiter.api.Test
     void oppgave1() {
         int antallFeil = 0;
-        Liste<Integer> liste = new Liste.DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.Liste<Integer> liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>();
 
         if (liste.antall() != 0) {
             antallFeil++;
@@ -21,7 +22,7 @@ class DobbeltLenketListeTest {
         }
 
         try {
-            liste = new Liste.DobbeltLenketListe<>(null);
+            liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(null);
             antallFeil++;
             System.out.println("Oppgave 1c: Det skal kastes en NullPointerExcepiton her!");
         } catch (Exception e) {
@@ -32,7 +33,7 @@ class DobbeltLenketListeTest {
             }
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{});
 
         if (liste.antall() != 0) {
             antallFeil++;
@@ -44,7 +45,7 @@ class DobbeltLenketListeTest {
             System.out.println("Oppgave 1f: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{1});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{1});
 
         if (liste.antall() != 1) {
             antallFeil++;
@@ -56,14 +57,14 @@ class DobbeltLenketListeTest {
             System.out.println("Oppgave 1h: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{1, 2});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{1, 2});
 
         if (liste.antall() != 2) {
             antallFeil++;
             System.out.println("Oppgave 1i: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{1, 2, 3});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{1, 2, 3});
 
         if (liste.antall() != 3) {
             antallFeil++;
@@ -72,49 +73,49 @@ class DobbeltLenketListeTest {
 
         Integer[] a = {1, 2, 3, 4, 5};
         Integer[] b = {1, 2, 3, 4, 5};
-        liste = new Liste.DobbeltLenketListe<>(a);
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(a);
 
         if (!Arrays.equals(a, b)) {
             antallFeil++;
             System.out.println("Oppgave 1k: Konstruktøren endrer parametertabellen!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null});
 
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1l: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null, null});
 
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1m: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null, null});
 
         if (liste.antall() != 0) {
             antallFeil++;
             System.out.println("Oppgave 1n: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null});
 
         if (liste.antall() != 1) {
             antallFeil++;
             System.out.println("Oppgave 1o: Feil i konstruktøren!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null, 3, null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null, 3, null});
 
         if (liste.antall() != 3) {
             antallFeil++;
             System.out.println("Oppgave 1p: Feil i konstruktøren!");
         }
 
-        class Test<T> extends Liste.DobbeltLenketListe<T> {
+        class Test<T> extends no.oslomet.cs.algdat.Liste.DobbeltLenketListe<T> {
             public boolean leggInn(T verdi) {
                 super.leggInn(verdi);
                 super.leggInn(verdi);
@@ -141,7 +142,7 @@ class DobbeltLenketListeTest {
     void oppgave2() {
         int antallFeil = 0;
 
-        Liste.DobbeltLenketListe<Integer> liste = new Liste.DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.Liste.DobbeltLenketListe<Integer> liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>();
 
         if (liste.leggInn(1) != true) {
             antallFeil++;
@@ -169,7 +170,7 @@ class DobbeltLenketListeTest {
             }
         }
 
-        liste = new Liste.DobbeltLenketListe<>();
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>();
 
         if (!liste.toString().equals("[]")) {
             antallFeil++;
@@ -231,7 +232,7 @@ class DobbeltLenketListeTest {
                     ("Oppgave 2l: Du har " + s + ", skal være [4, 3, 2, 1]!");
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null});
         String t1 = "[]", t2 = liste.toString();
 
         if (!t1.equals(t2)) {
@@ -240,7 +241,7 @@ class DobbeltLenketListeTest {
                     ("Oppgave 2m: Du har " + t2 + ", men det skal være " + t1);
         }
 
-        liste = new Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null});
+        liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(new Integer[]{null, 1, null, 2, null});
         t1 = "[1, 2]";
         t2 = liste.toString();
 
@@ -267,7 +268,7 @@ class DobbeltLenketListeTest {
     void oppgave3() {
         int antallFeil = 0;
 
-        Liste<Integer> testliste = new Liste.DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.Liste<Integer> testliste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>();
         for (int i = 0; i < 100000; i++) testliste.leggInn(i);
         long tid = System.currentTimeMillis();
         for (int i = 0; i < 10000; i++) testliste.hent(99999);
@@ -279,7 +280,7 @@ class DobbeltLenketListeTest {
             System.out.println("            Har du kodet metoden finnNode() riktig?");
         }
 
-        Liste.DobbeltLenketListe<Integer> liste = new Liste.DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.Liste.DobbeltLenketListe<Integer> liste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>();
 
         try {
             liste.hent(0);
@@ -401,7 +402,7 @@ class DobbeltLenketListeTest {
         }
 
         Integer[] i = {};
-        Liste.DobbeltLenketListe<Integer> iliste = new Liste.DobbeltLenketListe<>(i);
+        no.oslomet.cs.algdat.Liste.DobbeltLenketListe<Integer> iliste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(i);
 
         if (!iliste.subliste(0, 0).toString().equals("[]")) {
             antallFeil++;
@@ -410,7 +411,7 @@ class DobbeltLenketListeTest {
         }
 
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
-        Liste.DobbeltLenketListe<Character> cliste = new Liste.DobbeltLenketListe<>(c);
+        no.oslomet.cs.algdat.Liste.DobbeltLenketListe<Character> cliste = new no.oslomet.cs.algdat.Liste.DobbeltLenketListe<>(c);
 
         if (!cliste.subliste(0, 1).toString().equals("[A]")) {
             antallFeil++;
@@ -496,7 +497,7 @@ class DobbeltLenketListeTest {
     void oppgave4() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<String> sliste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.DobbeltLenketListe<String> sliste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
         sliste.leggInn("A");
 
         if (sliste.indeksTil(new String("A")) != 0) {
@@ -505,7 +506,7 @@ class DobbeltLenketListeTest {
             System.out.println("            og ikke == i sammenligningen i indeksTil()!");
         }
 
-        Liste<Integer> liste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.Liste<Integer> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         if (liste.indeksTil(2) != -1) {
             antallFeil++;
@@ -552,7 +553,7 @@ class DobbeltLenketListeTest {
             System.out.println("Oppgave 4h: Feil i metoden inneholder()!");
         }
 
-        sliste = new DobbeltLenketListe<>();
+        sliste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
         sliste.leggInn("Kari");
         sliste.leggInn("Kari");
 
@@ -568,7 +569,7 @@ class DobbeltLenketListeTest {
     void oppgave5() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.DobbeltLenketListe<Integer> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         try {
             liste.leggInn(-1, 1);
@@ -606,7 +607,7 @@ class DobbeltLenketListeTest {
             }
         }
 
-        liste = new DobbeltLenketListe<>();
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         try {
             liste.leggInn(0, 4);
@@ -618,7 +619,7 @@ class DobbeltLenketListeTest {
             return;
         }
 
-        liste = new DobbeltLenketListe<>();
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         liste.leggInn(0, 4);  // ny verdi i tom liste
         liste.leggInn(0, 2);  // ny verdi legges forrest
@@ -650,7 +651,7 @@ class DobbeltLenketListeTest {
     void oppgave6() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.DobbeltLenketListe<String> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         try {
             liste.fjern(0);
@@ -664,7 +665,7 @@ class DobbeltLenketListeTest {
             }
         }
 
-        liste = new DobbeltLenketListe<>(new String[]{"A", "B", "C", "D", "E", "F", "G"});
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>(new String[]{"A", "B", "C", "D", "E", "F", "G"});
 
         try {
             liste.fjern(7);
@@ -791,7 +792,7 @@ class DobbeltLenketListeTest {
             antallFeil++;
         }
 
-        liste = new DobbeltLenketListe<>();
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
         liste.leggInn("A");
         liste.leggInn("B");
         liste.leggInn("C");
@@ -808,7 +809,7 @@ class DobbeltLenketListeTest {
             System.out.println("            og ikke == i sammenligningen i fjern(T)!");
         }
 
-        liste = new DobbeltLenketListe<>();
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
         liste.leggInn("A");
 
         try {
@@ -898,13 +899,13 @@ class DobbeltLenketListeTest {
             antallFeil++;
         }
 
-        Liste<Integer> nyliste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.Liste<Integer> nyliste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         for (int i = 1; i <= 100_000; i++) nyliste.leggInn(i);
         long tid1 = System.currentTimeMillis();
         for (int i = 40000; i <= 50000; i++) nyliste.fjern(new Integer(i));
         tid1 = System.currentTimeMillis() - tid1;
-        nyliste = new DobbeltLenketListe<>();
+        nyliste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         for (int i = 1; i <= 100_000; i++) nyliste.leggInn(i);
         long tid2 = System.currentTimeMillis();
@@ -926,7 +927,7 @@ class DobbeltLenketListeTest {
     void oppgave7() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.DobbeltLenketListe<Integer> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         for (int i = 1; i <= 7; i++) {
             liste.leggInn(i);
@@ -961,7 +962,7 @@ class DobbeltLenketListeTest {
     void oppgave8() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.DobbeltLenketListe<Integer> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         try {
             Iterator<Integer> i = liste.iterator();
@@ -1153,7 +1154,7 @@ class DobbeltLenketListeTest {
     void oppgave9() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        no.oslomet.cs.algdat.DobbeltLenketListe<Integer> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>();
 
         for (int k = 1; k <= 13; k++) {
             liste.leggInn(k);
@@ -1245,10 +1246,10 @@ class DobbeltLenketListeTest {
     void oppgave10() {
         int antallFeil = 0;
 
-        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(new String[0]);
+        no.oslomet.cs.algdat.DobbeltLenketListe<String> liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>(new String[0]);
 
         try {
-            DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+            no.oslomet.cs.algdat.DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
 
             if (!liste.toString().equals("[]")) {
                 System.out.println("Oppgave 10a: Feil for tom liste!");
@@ -1259,24 +1260,24 @@ class DobbeltLenketListeTest {
             antallFeil++;
         }
 
-        liste = new DobbeltLenketListe<>(new String[]{"A"});
-        DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>(new String[]{"A"});
+        no.oslomet.cs.algdat.DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
 
         if (!liste.toString().equals("[A]")) {
             System.out.println("Oppgave 10c: Feil for liste med ett element!");
             antallFeil++;
         }
 
-        liste = new DobbeltLenketListe<>(new String[]{"C", "B", "A"});
-        DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>(new String[]{"C", "B", "A"});
+        no.oslomet.cs.algdat.DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
 
         if (!liste.toString().equals("[A, B, C]")) {
             System.out.println("Oppgave 10d: Feil for listen C, B, A!");
             antallFeil++;
         }
 
-        liste = new DobbeltLenketListe<>(new String[]{"G", "B", "F", "C", "E", "D", "A"});
-        DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+        liste = new no.oslomet.cs.algdat.DobbeltLenketListe<>(new String[]{"G", "B", "F", "C", "E", "D", "A"});
+        no.oslomet.cs.algdat.DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
 
         if (!liste.toString().equals("[A, B, C, D, E, F, G]")) {
             System.out.println("Oppgave 10e: Feil for listen G, B, F, C, E, D, A!");
@@ -1284,8 +1285,8 @@ class DobbeltLenketListeTest {
         }
 
         Integer[] a = {8, 5, 2, 11, 7, 3, 15, 14, 10, 17, 18, 9, 4, 12, 13, 19, 20, 1, 16, 6};
-        DobbeltLenketListe<Integer> intliste = new DobbeltLenketListe<>(a);
-        DobbeltLenketListe.sorter(intliste, Comparator.naturalOrder());
+        no.oslomet.cs.algdat.DobbeltLenketListe<Integer> intliste = new no.oslomet.cs.algdat.DobbeltLenketListe<>(a);
+        no.oslomet.cs.algdat.DobbeltLenketListe.sorter(intliste, Comparator.naturalOrder());
 
         if (!intliste.toString().equals(
                 "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]")) {
